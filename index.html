@@ -245,6 +245,8 @@ async function login() {
     async function logout() {
     await msalInstance.logoutRedirect({
         account: msalInstance.getActiveAccount(),
+        await msalInstance.initialize();
+        await msalInstance.handleRedirectPromise();
         postLogoutRedirectUri: window.location.origin
     });
 }
