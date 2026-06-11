@@ -3,7 +3,6 @@ import { next } from '@vercel/edge';
 export default function middleware(req) {
   return next({
     headers: {
-      'Cross-Origin-Opener-Policy': 'same-origin-allow-popups',
       'Referrer-Policy': 'origin-when-cross-origin',
       'X-Frame-Options': 'DENY',
       'X-Content-Type-Options': 'nosniff',
