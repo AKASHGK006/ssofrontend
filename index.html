@@ -242,15 +242,11 @@ async function login() {
         alert("Login Failed");
     }
 }
-
-async function logout() {
-
-    await msalInstance.logoutPopup();
-
-    profile.style.display = "none";
-
-    loginBtn.style.display = "block";
-    logoutBtn.style.display = "none";
+    async function logout() {
+    await msalInstance.logoutRedirect({
+        account: msalInstance.getActiveAccount(),
+        postLogoutRedirectUri: "http://localhost:5500"
+    });
 }
 
 loginBtn.addEventListener("click", login);
