@@ -246,16 +246,15 @@ async function login() {
     }
 }
 
-function logout() {
-    const account = msalInstance.getActiveAccount();
-
-    if (account) {
-        msalInstance.setActiveAccount(null);
+async function logout() {
+    try {
+        await msalInstance.logoutRedirect({
+            account: msalInstance.getAllAccounts()[0],
+            postLogoutRedirectUri: window.location.origin
+        });
+    } catch (error) {
+        console.error(error);
     }
-
-    profile.style.display = "none";
-    loginBtn.style.display = "block";
-    logoutBtn.style.display = "none";
 }
 
 loginBtn.addEventListener("click", login);
