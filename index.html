@@ -243,13 +243,10 @@ async function login() {
     }
 }
     async function logout() {
-
-    await msalInstance.logoutPopup();
-
-    profile.style.display = "none";
-
-    loginBtn.style.display = "block";
-    logoutBtn.style.display = "none";
+    await msalInstance.logoutRedirect({
+        account: msalInstance.getActiveAccount(),
+        postLogoutRedirectUri: window.location.origin
+    });
 }
 
 loginBtn.addEventListener("click", login);
