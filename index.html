@@ -243,10 +243,17 @@ async function login() {
     }
 }
     async function logout() {
-    await msalInstance.logoutRedirect({
-        account: msalInstance.getActiveAccount(),
-        postLogoutRedirectUri: "http://localhost:5500"
-    });
+
+    try {
+
+        await msalInstance.logoutRedirect({
+            account: msalInstance.getActiveAccount(),
+            postLogoutRedirectUri: window.location.origin
+        });
+
+    } catch (error) {
+        console.error(error);
+    }
 }
 
 loginBtn.addEventListener("click", login);
