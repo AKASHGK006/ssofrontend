@@ -243,10 +243,15 @@ async function login() {
     }
 }
     async function logout() {
-    await msalInstance.logoutRedirect({
-        account: msalInstance.getActiveAccount(),
-        postLogoutRedirectUri: window.location.origin
-    });
+    try {
+        await msalInstance.logoutPopup();
+
+        sessionStorage.clear();
+
+        window.location.reload();
+    } catch (e) {
+        console.error(e);
+    }
 }
 
 loginBtn.addEventListener("click", login);
