@@ -192,7 +192,10 @@ const msalConfig = {
         clientId: "747d3a85-9698-4e2c-b8b2-daec34b73768",
         authority:
             "https://login.microsoftonline.com/eb144c65-f215-4b78-a67d-30673cd1cec5",
-        redirectUri: window.location.origin
+        redirectUri: window.location.origin,
+
+        // ADD THIS
+        postLogoutRedirectUri: window.location.origin
     }
 };
 
@@ -243,12 +246,14 @@ async function login() {
     }
 }
 
-async function logout() {
+function logout() {
+    const account = msalInstance.getActiveAccount();
 
-    await msalInstance.logoutPopup();
+    if (account) {
+        msalInstance.setActiveAccount(null);
+    }
 
     profile.style.display = "none";
-
     loginBtn.style.display = "block";
     logoutBtn.style.display = "none";
 }
