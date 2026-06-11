@@ -244,16 +244,12 @@ async function login() {
 }
     async function logout() {
 
-    try {
+    await msalInstance.logoutPopup();
 
-        await msalInstance.logoutRedirect({
-            account: msalInstance.getActiveAccount(),
-            postLogoutRedirectUri: window.location.origin
-        });
+    profile.style.display = "none";
 
-    } catch (error) {
-        console.error(error);
-    }
+    loginBtn.style.display = "block";
+    logoutBtn.style.display = "none";
 }
 
 loginBtn.addEventListener("click", login);
